@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Prediction Wizard</title>
+    <link rel="stylesheet" href="static/d3.slider.css" />
+    <style>
+
+
+     .right {
+     float: left;
+    margin-left:100px
+     }
+
+
+     body {
+       font-family: verdana, Arial, AppleGothic, sans-serif;
+       background-image: url("static/chalkboard.jpg");
+     }
+
+     h2 {
+       font-size: 1.2em;
+       margin: 60px 0 5px 0;
+       color:  #d3f8f4 
+     }
+
+     .space {
+       margin-bottom: 20 px;
+     }
+
+     .wrapper {
+       width: 800px;
+       margin-left: auto;
+       margin-right: auto;
+       margin-bottom: 0px;
+     }
+
+     #bar_chart {
+       margin-bottom: 0 px;
+     }
+
+     .bar {
+       fill: Turquoise;
+     }
+
+     span {
+       color: #20c5b5;
+     }
+
+    </style>
+  </head>
+
+  <body>
+
+     <div id = "text" class = "wrapper">
+    <h2> Keep in mind: Test scores and grades are somewhat important; bad scores and grades are enough to keep you out, but great scores and grades are not enough to get you in.
+    </h>
+
+        <div id="chart_area" class="wrapper">
+      <h2>However, give me a chance please</h2>
+      <p class="space"></p>
+      <div id="bar_chart">
+      </div>
+    </div>
+
+
+    <div id="sliders" class="wrapper">
+
+      <h2>University: <span id="university">Arizona State University</span></h2>
+      <select id="university_select">
+        <option value="1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Arizona State University</option>
+        <option value="0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Boston University</option>
+        <option value="0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Brown University</option>
+        <option value="0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">SUNY Buffalo</option>
+        <option value="0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Carnegie Mellon University</option>
+        <option value="0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Clemson University</option>
+        <option value="0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Colorado University - Boulder</option>
+        <option value="0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Columbia University</option>
+        <option value="0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Cornell University</option>
+        <option value="0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Darthmouth College</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Duke</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">EPFL</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">ETH Zurich</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Georgia Tech</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Harvard University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">University of Illinois - Urbana-Champaign</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Indiana University - Bloomington</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Iowa State University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Johns Hopkins University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">KAUST</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">McGill University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Michigan State University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">MIT</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">New York University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">North Carolina State University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Northeastern University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Northwestern University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Ohio State University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Oregon State University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Oxford University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Penn State University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">University of Pittsburgh</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Princeton University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Purdue University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Rensselaer Polytechnic University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Rice University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Rutgers University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Simon Fraser University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Stanford University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">SUNY Stony Brook</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Syracuse University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">TAMU</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Texas University - Austin</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">Tufts University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">UC Berkeley</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">UC Davis</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">UC Irvine</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">UCLA</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">UC Riverside</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">UC San Diego</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">UC Santa Barbara</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">UC Santa Cruz</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">UMASS Amherst</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">University of Alberta</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">University of Arizona</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">University of British Columbia</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">University of Chicago</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">University of Florida</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0">University of Maryland</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0">University of Michigan Ann Arbor</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0">University of Minnesota</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0">University of Notre Dame</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0">University of Rochester</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0">University of Toronto</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0">University of Utah</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0">University of Virginia</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0">University of Washington</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0">University of Waterloo</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0">University of Wisconsin - Madison</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0">UPenn</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0">University of Southern California</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0">Vanderbilt University</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0">Virginia Tech</option>
+        <option value="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1">Yale</option>
+
+    </select>
+
+      <h2 class="feature">GRE Quantitative: <span id="gre_quant">150</span></h2>
+      <div id="gre_quant_slider"></div>
+
+      <h2 class="feature">GRE Verbal: <span id="gre_verbal">150</span></h2>
+      <div id="gre_verbal_slider"></div>
+
+      <h2 class="feature">GRE Writing: <span id="gre_writing">3.5</span></h2>
+      <div id="gre_writing_slider"></div>
+
+      <h2 class="feature">GPA: <span id="gpa">3.5</span></h2>
+      <div id="gpa_slider"></div>
+
+
+     <div class="right"> 
+      <h2>Status: <span id="status">American</span></h2>
+      <select id="status_select">
+        <option value="1,0,0,0">American</option>
+        <option value="0,0,0,1">International, with US Degree</option>
+        <option value="0,1,0,0">International, without US Degree</option>
+        <option value="0,0,1,0">Other</option>
+    </select>
+    </div>
+
+          <div class="right"> 
+      <h2>Subject GRE: <span id="gre_subject">Yes</span></h2>
+      <select id="gre_subject_select">
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+    </select>     
+       </div>
+
+
+      <div class="right"> 
+        <h2>M.S./Ph.D.?: <span id="degree">M.S.</span></h2>
+      <select id="degree_select">
+        <option value="1">M.S.</option>
+        <option value="0">Ph.D.</option>
+    </select>
+       </div>
+
+       <div class="right"> 
+      <h2>Semester: <span id="semester">Fall</span></h2>
+      <select id="semester_select">
+        <option value="1">Fall</option>
+        <option value="0">Spring</option>
+    </select>       
+        </div>
+    </div>
+
+    <!-- Import the libraries: jQuery, d3, d3.slider -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="static/d3.slider.js"></script>
+
+
+    <script>
+
+
+
+     <!-- SINGLE BAR CHART -->
+
+     var current_quant = 150;
+     var current_verbal = 150;
+     var current_writing = 3.5;
+     var current_gpa = 3.5;
+     var current_risk = 52.0;
+     var current_university = $("#university_select").val()
+     var current_status = $("#status_select").val();
+     var current_degree = $("#degree_select").val();
+     var current_gre_subject = $("#gre_subject_select").val();
+     var current_semester = $("#semester_select").val();
+     var current_isgpa = 1;
+     var current_isquant = 1;
+     var current_isverbal = 1;
+     var current_iswriting = 1;
+
+
+     var chart = d3.select("#bar_chart")
+                   .append("svg:svg")
+                   .attr("width", 800)
+                   .attr("height", 100);
+
+     var chance_scale = d3.scale.linear()
+                                .domain([0, 100])
+                                .range([0, 800]);
+
+     var bar = chart.append("g")
+                    .attr("class", "bar")
+
+       bar.append("svg:rect")
+          .attr("id", "chancebar")
+          .attr("class", "bar")
+          .attr("width", chance_scale(current_risk))
+          .attr("height", 50);
+
+     bar.append("text")
+        .attr("id", "percent_text")
+        .attr("dy", ".75em")
+        .attr("y", 15)
+        .attr("x", chance_scale(current_risk-5))
+        .attr("text-anchor", "middle")
+        .attr("fill", "black")
+        .attr("font-size", 20)
+        .text( current_risk.toFixed(1) + "%");
+
+
+     <!-- FUNCTION TO GET CHANCE FROM YOUR PREDICTOR WITH AJAX AND CHANGE BAR  HEIGHT -->
+     function getAndDrawChance(current_degree, current_gpa, current_isgpa, current_isquant, current_isverbal, current_iswriting, current_quant, current_semester, current_gre_subject, current_verbal, current_writing, current_university, current_status){
+
+     // getAndDrawChance(current_quant, current_verbal, current_writing, current_gpa, current_risk, current_university, current_status, current_degree, current_gre_subject, current_semester) 
+
+       // year = year - 1900;
+       $.ajax({
+         type: "POST",
+         contentType: "application/json; charset=utf-8",
+         url: "/score",
+         dataType: "json",
+         async: true,
+         data: "{\"example\": ["+current_degree+","+current_gpa+","+current_isgpa+","+current_isquant+","+current_isverbal+","+current_iswriting+","+current_quant+","+current_semester+","+current_gre_subject+","+current_verbal+","+current_writing+","+current_university+","+current_status+"]}",
+         success: function (data) {
+           var chance = 100 * data["score"];
+           d3.select("#chancebar")
+             .attr("width", chance_scale(chance));
+           d3.select("#percent_text")
+             .attr("x", chance_scale(chance-5))
+             .text(chance.toFixed(1) + "%");
+         },
+         error: function (result) {
+         }
+       })
+     }
+
+
+    //selectors
+
+       $("#university_select")
+     .change(function() {
+       current_university = $(this).val();
+       var university_name = $("#university_select option:selected").text();
+       document.getElementById("university").textContent=university_name;
+       getAndDrawChance(current_degree, current_gpa, current_isgpa, current_isquant, current_isverbal, current_iswriting, current_quant, current_semester, current_gre_subject, current_verbal, current_writing, current_university, current_status);
+     });
+
+        $("#status_select")
+     .change(function() {
+       current_status = $(this).val();
+       var status_name = $("#status_select option:selected").text()
+       document.getElementById("status").textContent=status_name;
+       getAndDrawChance(current_degree, current_gpa, current_isgpa, current_isquant, current_isverbal, current_iswriting, current_quant, current_semester, current_gre_subject, current_verbal, current_writing, current_university, current_status);
+     });
+
+        $("#degree_select")
+     .change(function() {
+       current_degree = $(this).val();
+       var degree_name = $("#degree_select option:selected").text()
+       document.getElementById("degree").textContent=degree_name;
+       getAndDrawChance(current_degree, current_gpa, current_isgpa, current_isquant, current_isverbal, current_iswriting, current_quant, current_semester, current_gre_subject, current_verbal, current_writing, current_university, current_status);
+     });
+
+        $("#gre_subject_select")
+     .change(function() {
+       current_gre_subject = $(this).val();
+       var subject_name = $("#gre_subject_select option:selected").text()
+       document.getElementById("gre_subject").textContent=subject_name;
+       getAndDrawChance(current_degree, current_gpa, current_isgpa, current_isquant, current_isverbal, current_iswriting, current_quant, current_semester, current_gre_subject, current_verbal, current_writing, current_university, current_status);
+     });
+
+        $("#semester_select")
+     .change(function() {
+       current_semester = $(this).val();
+       var semester_name = $("#semester_select option:selected").text()
+       document.getElementById("semester").textContent=semester_name;
+       getAndDrawChance(current_degree, current_gpa, current_isgpa, current_isquant, current_isverbal, current_iswriting, current_quant, current_semester, current_gre_subject, current_verbal, current_writing, current_university, current_status);
+     });
+
+     <!-- SLIDERS -->
+
+     d3.select('#gre_quant_slider')
+       .call(
+         d3.slider()
+           .value(current_quant)
+           .min(100)
+           .max(170)
+           .step(1)
+           .axis(true)
+           .on("slide", function(evt,value) {
+             d3.select('#gre_quant').text(value);
+             current_quant = value;
+             getAndDrawChance(current_degree, current_gpa, current_isgpa, current_isquant, current_isverbal, current_iswriting, current_quant, current_semester, current_gre_subject, current_verbal, current_writing, current_university, current_status)
+           }
+           )
+       );
+
+     d3.select('#gre_verbal_slider')
+       .call(
+         d3.slider()
+           .value(current_verbal)
+           .min(100)
+           .max(170)
+           .step(1)
+           .axis(true)
+           .on("slide", function(evt,value) {
+             d3.select('#gre_verbal').text(value);
+             current_verbal = value;
+             getAndDrawChance(current_degree, current_gpa, current_isgpa, current_isquant, current_isverbal, current_iswriting, current_quant, current_semester, current_gre_subject, current_verbal, current_writing, current_university, current_status)
+           }
+           )
+       );
+
+     d3.select('#gre_writing_slider')
+       .call(
+         d3.slider()
+           .value(current_writing)
+           .min(1.5)
+           .max(6)
+           .step(0.5)
+           .axis(true)
+           .on("slide", function(evt,value) {
+             d3.select('#gre_writing').text(value);
+             current_writing = value;
+             getAndDrawChance(current_degree, current_gpa, current_isgpa, current_isquant, current_isverbal, current_iswriting, current_quant, current_semester, current_gre_subject, current_verbal, current_writing, current_university, current_status)
+           }
+           )
+       );
+
+      d3.select('#gpa_slider')
+       .call(
+         d3.slider()
+           .value(current_gpa)
+           .min(1.5)
+           .max(4)
+           .step(0.05)
+           .axis(true)
+           .on("slide", function(evt,value) {
+             d3.select('#gpa').text(Math.round(value*100)/100);
+             current_gpa = value;
+             getAndDrawChance(current_degree, current_gpa, current_isgpa, current_isquant, current_isverbal, current_iswriting, current_quant, current_semester, current_gre_subject, current_verbal, current_writing, current_university, current_status)
+           }
+           )
+       );
+    </script>
+  </body>
+</html>
